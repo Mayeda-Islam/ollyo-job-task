@@ -1,9 +1,11 @@
 // import "./App.css";
 
+import Home from "./Component/Home/Home";
+
 function App() {
   return (
     <>
-      <p className="text-2xl">The quick brown fox ...</p>
+      <Home />
     </>
   );
 }
