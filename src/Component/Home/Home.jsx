@@ -81,11 +81,21 @@ const Home = () => {
               key={gallary?.id}
               className={`${
                 index === 0
-                  ? "col-span-2 row-span-2 border-2 rounded-lg"
-                  : "border-2 rounded-lg"
+                  ? "col-span-2 row-span-2 border-2 rounded-lg relative group hover:border-none overflow-hidden"
+                  : "border-2 rounded-lg relative group hover:border-none overflow-hidden"
               }`}
             >
-              <img src={gallary?.image} alt="" />
+              <img
+                src={gallary?.image}
+                alt=""
+                className="w-full h-auto transition duration-300 transform group-hover:scale-105 "
+              />
+              <div className="absolute inset-0 bg-black  rounded-lg  opacity-0 flex justify-center items-center group-hover:opacity-50">
+                <input
+                  type="checkbox"
+                  className="transform absolute  scale-150 opacity-100 top-4 left-4 cursor-pointer"
+                />
+              </div>
             </div>
           ))}
         </div>
