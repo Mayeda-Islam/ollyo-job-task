@@ -73,7 +73,7 @@ const Home = () => {
   let count = 0;
 
   const [gallaryState, setGallaryState] = useState(gallaryArray);
-  // const [selectedProduct, setSelectedProduct] = useState([]);
+  const [dragStart, setDragStart] = useState(null);
 
   gallaryState.forEach((gallary) => {
     if (gallary.status === true) {
@@ -102,6 +102,15 @@ const Home = () => {
     );
     setGallaryState(selectedPhoto);
   };
+  const handleDrop = (e, index) => {
+    const dragGallary = gallaryState.filter(
+      (gallary) => gallary.id !== dragStart.id
+    );
+    dragGallary.splice(index, 0, dragStart);
+    setGallaryState(dragGallary);
+    console.log(dragGallary);
+  };
+  console.log(dragStart, "state theke");
   return (
     <div className="flex justify-center items-end">
       <div className="w-4/5 rounded-lg bg-white ">
@@ -131,6 +140,10 @@ const Home = () => {
           {gallaryState.map((gallary, index) => (
             <div
               key={gallary?.id}
+              draggable
+              onDragStart={() => setDragStart(gallary)}
+              onDrop={(e) => handleDrop(e, index)}
+              onDragOver={(event) => event.preventDefault()}
               className={`${
                 index === 0
                   ? "col-span-2 row-span-2 border-2 rounded-lg relative group hover:border-none overflow-hidden"
