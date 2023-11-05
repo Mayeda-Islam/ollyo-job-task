@@ -69,8 +69,19 @@ const Home = () => {
       status: false,
     },
   ];
+
+  let count = 0;
+
   const [gallaryState, setGallaryState] = useState(gallaryArray);
-  // const [selectedProduct,setSelectedProduct]=useState()
+  // const [selectedProduct, setSelectedProduct] = useState([]);
+
+  gallaryState.forEach((gallary) => {
+    if (gallary.status === true) {
+      console.log(gallary.status);
+      count++;
+    }
+  });
+  console.log(count, "line 79");
 
   const handleCheckboxChange = (id) => {
     const checkedProduct = gallaryState.map((product) => {
@@ -85,17 +96,33 @@ const Home = () => {
   };
   console.log(gallaryState);
 
+  const handleDelete = () => {
+    const selectedPhoto = gallaryState.filter(
+      (photo) => photo.status === false
+    );
+    setGallaryState(selectedPhoto);
+  };
   return (
     <div className="flex justify-center items-end">
       <div className="w-4/5 rounded-lg bg-white ">
         <h1 className="text-black text-2xl font-semibold p-3 pl-10">Gallary</h1>
-        <div className="flex justify-between items-center px-10">
+        <div
+          className={`${
+            count > 0 ? "flex justify-between items-center px-10 " : "hidden"
+          }`}
+        >
           <div>
             {" "}
-            <input type="checkbox" name="" id="" />
-            <span className="text-black">File Selected</span>
+            <input checked type="checkbox" name="" id="" />
+            <span className="text-black">
+              {count}
+              {count > 1 ? "Files Selected" : "File Selected"}
+            </span>
           </div>
-          <p className="text-red-500 hover:underline hover:cursor-pointer">
+          <p
+            onClick={handleDelete}
+            className="text-red-500 hover:underline hover:cursor-pointer"
+          >
             Delete files
           </p>
         </div>
